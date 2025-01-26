@@ -13,7 +13,7 @@ const AuthForm = ({ onSubmit, isLogin }) => {
           <input
             {...register("name", { required: "Name is required" })}
             type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
           />
           {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
         </div>
@@ -25,7 +25,7 @@ const AuthForm = ({ onSubmit, isLogin }) => {
         <input
           {...register("email", { required: "Email is required" })}
           type="email"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
         />
         {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
       </div>
@@ -36,7 +36,7 @@ const AuthForm = ({ onSubmit, isLogin }) => {
         <input
           {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
           type="password"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
         />
         {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
       </div>
@@ -48,7 +48,7 @@ const AuthForm = ({ onSubmit, isLogin }) => {
           <input
             {...register("photoURL")}
             type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-1 block text-black w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
           />
         </div>
       )}
