@@ -1,51 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IoMenu, IoClose } from "react-icons/io5";
+import useAuth from "../hooks/useAuth";
+
+const useClickOutside = (ref, callback) => {
+    useEffect(() => {
+        const handleClick = (e) => {
+            if (ref.current && !ref.current.contains(e.target)) {
+                callback();
+            }
+        };
+        document.addEventListener("mousedown", handleClick);
+        return () => document.removeEventListener("mousedown", handleClick);
+    }, [ref, callback]);
+};
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [user, setUser] = useState({
-        name: "Jawadul Karim",
-        profilePic: "",
-    });
+    const { user, logOut } = useAuth();
+    const dropdownRef = useRef(null);
+    const mobileMenuRef = useRef(null);
+    useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
+    useClickOutside(mobileMenuRef, () => setIsMenuOpen(false));
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    const handleLogout = () => {
+        logOut();
+        setIsDropdownOpen(false);
+        setIsMenuOpen(false);
     };
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
+    const navLinkClass = ({ isActive }) =>
+        isActive ? "font-bold text-white bg-gray-700 px-4 py-2 rounded-lg"
+            : "text-white hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors duration-300";
 
-    const logout = () => {
-        console.log("User logged out");
-        setUser(null);
-    };
+    const mobileNavLinkClass = ({ isActive }) =>
+        isActive ? "font-bold text-white underline"
+            : "text-white hover:underline";
 
     const links = (
         <>
             <li>
-                <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "font-bold text-white bg-gray-700 px-4 py-2 rounded-lg"
-                            : "text-white hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors duration-300"
-                    }
-                >
+                <NavLink to="/" className={navLinkClass}>
                     Home
                 </NavLink>
             </li>
             <li>
-                <NavLink
-                    to="/products"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "font-bold text-white bg-gray-700 px-4 py-2 rounded-lg"
-                            : "text-white hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors duration-300"
-                    }
-                >
+                <NavLink to="/products" className={navLinkClass}>
                     Products
                 </NavLink>
             </li>
@@ -56,17 +59,13 @@ const Header = () => {
         <div className="bg-gray-900 shadow-lg sticky top-0 z-50">
             <nav className="container w-11/12 mx-auto flex items-center justify-between p-4">
                 <div className="flex items-center">
-                    <NavLink
-                        to="/"
-                        className="text-xl font-bold flex items-center gap-2 text-white"
-                    >
+                    <NavLink to="/" className="text-xl font-bold flex items-center gap-2 text-white">
                         TechNest
                         <span className="btn btn-circle btn-outline italic font-black text-2xl bg-white text-black">
                             TN
                         </span>
                     </NavLink>
                 </div>
-
                 <ul className="hidden lg:flex items-center gap-6">
                     {links}
                     {!user ? (
@@ -89,30 +88,35 @@ const Header = () => {
                             </li>
                         </>
                     ) : (
-                        <li className="relative">
+                        <li className="relative" ref={dropdownRef}>
                             <button
                                 onClick={toggleDropdown}
                                 className="flex items-center gap-2 focus:outline-none"
+                                aria-label="User menu"
                             >
                                 <img
-                                    src={user.profilePic}
+                                    src={user.photoURL || ""}
                                     alt="User"
                                     className="w-10 h-10 rounded-full border-2 border-blue-500 hover:border-blue-600 transition-colors duration-300"
+                                    onError={(e) => {
+                                        e.target.src = "";
+                                    }}
                                 />
                             </button>
                             {isDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50">
+                                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-50 transition-all duration-300">
                                     <p className="px-4 py-2 text-gray-700 border-b bg-gray-100">
-                                        {user.name || "User"}
+                                        {user.displayName || "User"}
                                     </p>
                                     <NavLink
                                         to="/dashboard"
                                         className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-300"
+                                        onClick={() => setIsDropdownOpen(false)}
                                     >
                                         Dashboard
                                     </NavLink>
                                     <button
-                                        onClick={logout}
+                                        onClick={handleLogout}
                                         className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-300"
                                     >
                                         Log Out
@@ -122,30 +126,29 @@ const Header = () => {
                         </li>
                     )}
                 </ul>
-
                 <div className="lg:hidden">
                     <button
                         onClick={toggleMenu}
                         className="btn btn-ghost text-white hover:bg-gray-700 rounded-lg p-2"
+                        aria-label="Toggle navigation menu"
                     >
                         {isMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
                     </button>
                 </div>
             </nav>
-
             {isMenuOpen && (
-                <div className="lg:hidden bg-gray-800 w-48 absolute top-16 right-5 z-40 shadow-lg rounded-md overflow-hidden">
+                <div
+                    className="lg:hidden fixed top-16 inset-x-0 bg-gray-800 z-40 shadow-lg"
+                    ref={mobileMenuRef}
+                >
                     <ul className="p-4 space-y-2">
                         {!user ? (
                             <>
                                 <li>
                                     <NavLink
                                         to="/"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "font-bold text-white underline"
-                                                : "text-white hover:underline"
-                                        }
+                                        className={mobileNavLinkClass}
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Home
                                     </NavLink>
@@ -153,11 +156,8 @@ const Header = () => {
                                 <li>
                                     <NavLink
                                         to="/products"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "font-bold text-white underline"
-                                                : "text-white hover:underline"
-                                        }
+                                        className={mobileNavLinkClass}
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Products
                                     </NavLink>
@@ -166,6 +166,7 @@ const Header = () => {
                                     <NavLink
                                         to="/login"
                                         className="btn btn-primary btn-sm text-white w-full mt-2 hover:bg-blue-600 transition-colors duration-300"
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Log In
                                     </NavLink>
@@ -174,6 +175,7 @@ const Header = () => {
                                     <NavLink
                                         to="/register"
                                         className="btn btn-secondary btn-sm text-white w-full mt-2 hover:bg-purple-600 transition-colors duration-300"
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Register
                                     </NavLink>
@@ -181,17 +183,16 @@ const Header = () => {
                             </>
                         ) : (
                             <>
-                                <li>
-                                    <p className="text-white pt-1 font-black">{user.name || "User"}</p>
+                                <li className="pb-2 border-b border-gray-700">
+                                    <p className="text-white font-bold">{user.displayName
+                                        || "User"}</p>
+                                    <p className="text-gray-400 text-sm">{user.email}</p>
                                 </li>
                                 <li>
                                     <NavLink
                                         to="/dashboard"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "font-bold text-white underline"
-                                                : "text-white hover:underline"
-                                        }
+                                        className={mobileNavLinkClass}
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Dashboard
                                     </NavLink>
@@ -199,11 +200,8 @@ const Header = () => {
                                 <li>
                                     <NavLink
                                         to="/"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "font-bold text-white underline"
-                                                : "text-white hover:underline"
-                                        }
+                                        className={mobileNavLinkClass}
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Home
                                     </NavLink>
@@ -211,18 +209,15 @@ const Header = () => {
                                 <li>
                                     <NavLink
                                         to="/products"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "font-bold text-white underline"
-                                                : "text-white hover:underline"
-                                        }
+                                        className={mobileNavLinkClass}
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
                                         Products
                                     </NavLink>
                                 </li>
                                 <li className="pt-4">
                                     <button
-                                        onClick={logout}
+                                        onClick={handleLogout}
                                         className="btn btn-error btn-outline w-full"
                                     >
                                         Log Out
