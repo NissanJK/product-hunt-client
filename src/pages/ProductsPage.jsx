@@ -5,14 +5,12 @@ import ProductCard from "../components/ProductCard";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
 import { Helmet } from "react-helmet";
-import { useDebounce } from "use-debounce";
 
 const ProductsPage = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const [page, setPage] = useState(1);
 
   const {
@@ -21,16 +19,17 @@ const ProductsPage = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["products", debouncedSearchTerm, page],
+    queryKey: ["products", searchTerm, page],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/products/search?term=${debouncedSearchTerm}&page=${page}`);
+      const res = await axiosPublic.get(`/products/search?term=${searchTerm}&page=${page}`);
       return res.data;
     },
+    keepPreviousData: true, 
   });
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setPage(1);
+    setPage(1); 
   };
 
   const handleUpvote = async (productId) => {
@@ -59,7 +58,10 @@ const ProductsPage = () => {
     <div className="my-12">
       <Helmet>
         <title>TechNest | All Products</title>
-        <meta name="description" content="Browse all products available on TechNest. Find the latest tech products and gadgets." />
+        <meta
+          name="description"
+          content="Browse all products available on TechNest. Find the latest tech products and gadgets."
+        />
         <meta name="keywords" content="tech, products, gadgets, electronics" />
       </Helmet>
       <h2 className="text-3xl font-bold text-center mb-8">All Products</h2>
