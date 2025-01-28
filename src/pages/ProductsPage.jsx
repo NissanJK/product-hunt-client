@@ -5,24 +5,29 @@ import ProductCard from "../components/ProductCard";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
 import { Helmet } from "react-helmet";
+import { useDebounce } from "use-debounce";
 
 const ProductsPage = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const [page, setPage] = useState(1);
+
   const {
     data: { products = [], totalPages = 1 } = {},
     isLoading,
+    error,
     refetch,
   } = useQuery({
-    queryKey: ["products", searchTerm, page],
+    queryKey: ["products", debouncedSearchTerm, page],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/products/search?term=${searchTerm}&page=${page}`);
+      const res = await axiosPublic.get(`/products/search?term=${debouncedSearchTerm}&page=${page}`);
       return res.data;
     },
   });
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     setPage(1);
@@ -43,13 +48,19 @@ const ProductsPage = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading products...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500">Error: {error.message}</div>;
   }
 
   return (
     <div className="my-12">
       <Helmet>
         <title>TechNest | All Products</title>
+        <meta name="description" content="Browse all products available on TechNest. Find the latest tech products and gadgets." />
+        <meta name="keywords" content="tech, products, gadgets, electronics" />
       </Helmet>
       <h2 className="text-3xl font-bold text-center mb-8">All Products</h2>
 
@@ -60,6 +71,7 @@ const ProductsPage = () => {
           value={searchTerm}
           onChange={handleSearch}
           className="input input-bordered w-11/12 max-w-md"
+          aria-label="Search products by tags"
         />
       </div>
 
@@ -76,6 +88,13 @@ const ProductsPage = () => {
 
       <div className="flex justify-center mt-8">
         <div className="join">
+          <button
+            onClick={() => setPage(1)}
+            disabled={page === 1}
+            className="join-item btn"
+          >
+            ««
+          </button>
           <button
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1}
@@ -98,6 +117,13 @@ const ProductsPage = () => {
             className="join-item btn"
           >
             »
+          </button>
+          <button
+            onClick={() => setPage(totalPages)}
+            disabled={page === totalPages}
+            className="join-item btn"
+          >
+            »»
           </button>
         </div>
       </div>
