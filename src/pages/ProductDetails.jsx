@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { FaArrowUp, FaFlag } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -148,6 +149,9 @@ const ProductDetails = () => {
 
   return (
     <div className="my-12 max-w-7xl mx-auto px-4">
+      <Helmet>
+        <title>TechNest | {product.name} Details</title>
+      </Helmet>
       <div className="card bg-base-100 shadow-xl">
         <figure>
           <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded-lg" />

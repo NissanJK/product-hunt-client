@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const MyProducts = () => {
   const { user } = useAuth();
@@ -15,6 +16,9 @@ const MyProducts = () => {
 
   return (
     <div className="bg-white text-black p-6 rounded-lg shadow-md">
+      <Helmet>
+        <title>TechNest | My Products</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">My Products</h2>
       <table className="w-full border-collapse border border-gray-300">
         <thead>

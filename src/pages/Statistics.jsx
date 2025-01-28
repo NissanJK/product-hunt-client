@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const Statistics = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,6 +23,9 @@ const Statistics = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md text-black">
+      <Helmet>
+        <title>TechNest | Statistics</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Statistics</h2>
       <PieChart width={400} height={400}>
         <Pie

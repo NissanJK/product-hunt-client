@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
+import { Helmet } from "react-helmet";
 
 const AddProduct = () => {
   const { user } = useAuth();
@@ -26,6 +27,9 @@ const AddProduct = () => {
 
   return (
     <div className="bg-white text-black p-6 rounded-lg shadow-md">
+      <Helmet>
+        <title>TechNest | Add Product</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Add Product</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input
