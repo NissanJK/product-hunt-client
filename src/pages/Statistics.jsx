@@ -21,7 +21,7 @@ const Statistics = () => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-md text-black">
       <h2 className="text-2xl font-bold mb-4">Statistics</h2>
       <PieChart width={400} height={400}>
         <Pie

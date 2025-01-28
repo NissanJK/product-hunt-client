@@ -15,6 +15,9 @@ import AddProduct from "../pages/AddProduct";
 import MyProducts from "../pages/MyProducts";
 import ReviewQueue from "../pages/ReviewQueue";
 import Statistics from "../pages/Statistics";
+import ReportedContent from "../pages/ReportedContent";
+import ManageUsers from "../pages/ManageUsers";
+import ManageCoupons from "../pages/ManageCoupons";
 
 const router = createBrowserRouter([
     {
@@ -64,22 +67,22 @@ const router = createBrowserRouter([
                 path: "review-queue",
                 element: <ReviewQueue />
             },
-            // {
-            //     path: "reported-contents",
-            //     element: <ReportedContents />
-            // },
+            {
+                path: "reported-contents",
+                element: <ReportedContent />
+            },
             {
                 path: "statistics",
                 element: <Statistics />
             },
-            // {
-            //     path: "manage-users",
-            //     element: <ManageUsers />
-            // },
-            // {
-            //     path: "manage-coupons",
-            //     element: <ManageCoupons />
-            // },
+            {
+                path: "manage-users",
+                element: <ManageUsers />
+            },
+            {
+                path: "manage-coupons",
+                element: <ManageCoupons />
+            },
         ],
     },
 ]);
