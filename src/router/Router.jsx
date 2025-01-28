@@ -1,5 +1,6 @@
 import {
     createBrowserRouter,
+    Navigate, // Import Navigate for redirection
 } from "react-router-dom";
 import Error from "../pages/Error";
 import Layout from "../layout/Layout";
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
+            {
+                path: "",
+                element: <Navigate to="my-profile" replace />,
+            },
             {
                 path: "my-profile",
                 element: <MyProfile />
