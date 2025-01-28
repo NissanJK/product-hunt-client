@@ -148,7 +148,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="my-12 max-w-7xl mx-auto px-4">
+    <div className="my-12 max-w-7xl mx-auto px-4 text-white">
       <Helmet>
         <title>TechNest | {product.name} Details</title>
       </Helmet>
@@ -157,8 +157,8 @@ const ProductDetails = () => {
           <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded-lg" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title text-3xl font-bold text-gray-800">{product.name}</h2>
-          <p className="text-gray-600 mt-2">{product.description}</p>
+          <h2 className="card-title text-3xl font-bold text-gray-100">{product.name}</h2>
+          <p className="text-gray-100 mt-2">{product.description}</p>
           <div className="card-actions justify-end mt-4">
             <button onClick={handleUpvote} className="btn btn-sm btn-primary text-white shadow-md hover:shadow-lg transition-all">
               <FaArrowUp className="mr-2" /> {product.upvotes}
@@ -171,9 +171,9 @@ const ProductDetails = () => {
       </div>
 
       <div className="my-12">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800">Reviews</h2>
+        <h2 className="text-3xl font-bold mb-8 text-gray-100">Reviews</h2>
         {reviews.length === 0 ? (
-          <p className="text-gray-600">No reviews yet. Be the first to review!</p>
+          <p className="text-gray-100">No reviews yet. Be the first to review!</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reviews.map((review) => (
@@ -185,9 +185,9 @@ const ProductDetails = () => {
                       alt={review.reviewerName}
                       className="w-12 h-12 rounded-full border-2 border-primary"
                     />
-                    <h3 className="font-semibold text-lg text-gray-800">{review.reviewerName}</h3>
+                    <h3 className="font-semibold text-lg text-gray-100">{review.reviewerName}</h3>
                   </div>
-                  <p className="text-gray-700 mt-3">{review.description}</p>
+                  <p className="text-gray-100 mt-3">{review.description}</p>
                   <div className="rating mt-4">
                     {Array.from({ length: 5 }, (_, i) => (
                       <input
@@ -209,11 +209,11 @@ const ProductDetails = () => {
 
       {user && (
         <div className="my-12">
-          <h2 className="text-3xl font-bold mb-8 text-gray-800">Post a Review</h2>
+          <h2 className="text-3xl font-bold mb-8 text-gray-100">Post a Review</h2>
           <form onSubmit={handleSubmit(onSubmitReview)} className="space-y-6 bg-gray-100 p-6 rounded-lg shadow-lg">
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-lg font-medium">Review Description</span>
+                <span className="label-text text-lg font-medium text-gray-600">Review Description</span>
               </label>
               <textarea
                 {...register("description", { required: "Description is required" })}
@@ -226,11 +226,11 @@ const ProductDetails = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-lg font-medium">Rating</span>
+                <span className="label-text text-lg text-gray text-gray-700 font-medium">Rating</span>
               </label>
               <select
                 {...register("rating", { required: "Rating is required" })}
-                className="select select-bordered w-full p-4 text-lg rounded-lg border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-primary"
+                className="select text-white select-bordered w-full p-4 text-lg rounded-lg border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="">Select a rating</option>
                 <option value={1}>1 Star</option>
