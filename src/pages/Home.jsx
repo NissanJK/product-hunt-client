@@ -1,5 +1,7 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
+import Banner from "./Home/Banner";
+import FeaturedProducts from "./Home/FeaturedProducts";
+import TrendingProducts from "./Home/TrendingProducts";
 
 const Home = () => {
     return (
@@ -7,7 +9,9 @@ const Home = () => {
             <Helmet>
                 <title>TechNest | Home</title>
             </Helmet>
-            <h1 className='text-5xl text-center py-10'>Home</h1>
+            <Banner />
+            <FeaturedProducts />
+            <TrendingProducts />
         </div>
     );
 };
