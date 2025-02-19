@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { FaArrowUp } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";

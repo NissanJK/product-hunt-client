@@ -8,7 +8,6 @@ const ProductsPage = () => {
   const axiosPublic = useAxiosPublic();
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch all products once
   const { data: products = [], isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -17,7 +16,6 @@ const ProductsPage = () => {
     },
   });
 
-  // Client-side filtering
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.description?.toLowerCase().includes(searchTerm.toLowerCase())
