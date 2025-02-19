@@ -19,6 +19,7 @@ import Statistics from "../pages/Statistics";
 import ReportedContent from "../pages/ReportedContent";
 import ManageUsers from "../pages/ManageUsers";
 import ManageCoupons from "../pages/ManageCoupons";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/about",
+                element: <About />
             },
             {
                 path: "/login",

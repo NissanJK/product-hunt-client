@@ -52,6 +52,11 @@ const Header = () => {
                     Products
                 </NavLink>
             </li>
+            <li>
+                <NavLink to="/about" className={navLinkClass}>
+                    About
+                </NavLink>
+            </li>
         </>
     );
 
@@ -73,7 +78,7 @@ const Header = () => {
                             <li>
                                 <NavLink
                                     to="/login"
-                                    className="btn btn-primary btn-sm text-white hover:bg-blue-600 transition-colors duration-300"
+                                    className={navLinkClass}
                                 >
                                     Log In
                                 </NavLink>
@@ -81,7 +86,7 @@ const Header = () => {
                             <li>
                                 <NavLink
                                     to="/register"
-                                    className="btn btn-secondary btn-sm text-white hover:bg-purple-600 transition-colors duration-300"
+                                    className={navLinkClass}
                                 >
                                     Register
                                 </NavLink>
@@ -165,7 +170,7 @@ const Header = () => {
                                 <li>
                                     <NavLink
                                         to="/login"
-                                        className="btn btn-primary btn-sm text-white w-full mt-2 hover:bg-blue-600 transition-colors duration-300"
+                                        className={mobileNavLinkClass}
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         Log In
@@ -174,7 +179,7 @@ const Header = () => {
                                 <li>
                                     <NavLink
                                         to="/register"
-                                        className="btn btn-secondary btn-sm text-white w-full mt-2 hover:bg-purple-600 transition-colors duration-300"
+                                        className={mobileNavLinkClass}
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         Register
@@ -213,6 +218,15 @@ const Header = () => {
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         Products
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/about"
+                                        className={mobileNavLinkClass}
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        About
                                     </NavLink>
                                 </li>
                                 <li className="pt-4">
