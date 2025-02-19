@@ -31,7 +31,7 @@ const ProductsPage = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="py-10">
+    <div className="py-10 bg-gray-800">
       <Helmet>
         <title>TechNest | All Products</title>
       </Helmet>

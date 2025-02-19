@@ -9,7 +9,7 @@ const ProductCard = ({ product, onUpvote, isOwner }) => {
   const tags = Array.isArray(product?.tags) ? product.tags : [];
 
   return (
-    <div className="card bg-base-100 shadow-xl h-96 w-full flex flex-col">
+    <div className="card bg-gray-700 shadow-xl h-96 w-full flex flex-col">
       <figure className="h-1/2">
         <img
           src={product.image || ""}
@@ -21,7 +21,7 @@ const ProductCard = ({ product, onUpvote, isOwner }) => {
         <h2 className="card-title">
           <Link to={`/products/${product._id}`}>{product.name}</Link>
         </h2>
-        <p className="text-sm text-gray-600 line-clamp-3">{product.description}</p>
+        <p className="text-sm text-gray-200 line-clamp-3">{product.description}</p>
         <div className="flex flex-wrap gap-2 mt-2">
           {tags.map((tag, index) => (
             <span key={index} className="badge badge-outline">

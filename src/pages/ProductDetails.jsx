@@ -148,13 +148,13 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="my-12 max-w-7xl mx-auto px-4 text-white">
+    <div className="py-12 mx-auto px-4 text-white bg-gray-800">
       <Helmet>
         <title>TechNest | {product.name} Details</title>
       </Helmet>
-      <div className="card bg-base-100 shadow-xl">
+      <div className="card bg-gray-700 shadow-xl w-11/12 mx-auto">
         <figure>
-          <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded-lg" />
+          <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded-lg p-5" />
         </figure>
         <div className="card-body">
           <h2 className="card-title text-3xl font-bold text-gray-100">{product.name}</h2>
@@ -170,7 +170,7 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className="my-12">
+      <div className="my-12 w-11/12 mx-auto">
         <h2 className="text-3xl font-bold mb-8 text-gray-100">Reviews</h2>
         {reviews.length === 0 ? (
           <p className="text-gray-100">No reviews yet. Be the first to review!</p>
@@ -208,7 +208,7 @@ const ProductDetails = () => {
       </div>
 
       {user && (
-        <div className="my-12">
+        <div className="my-12 w-11/12 mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-gray-100">Post a Review</h2>
           <form onSubmit={handleSubmit(onSubmitReview)} className="space-y-6 bg-gray-100 p-6 rounded-lg shadow-lg">
             <div className="form-control">
