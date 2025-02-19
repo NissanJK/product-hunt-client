@@ -26,7 +26,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="bg-white text-black p-6 rounded-lg shadow-md">
+    <div className="bg-gray-200 h-screen text-black p-6 rounded-lg shadow-md">
       <Helmet>
         <title>TechNest | Add Product</title>
       </Helmet>
