@@ -64,6 +64,10 @@ const Header = () => {
                             Dashboard
                         </NavLink>
                     </li>
+                </>
+            )}
+            {user && user.email !== "admin@gmail.com" && user.email !== "nissan@jk.com" && (
+                <>
                     <li>
                         <NavLink to="/dashboard/my-products" className={navLinkClass}>
                             My Products
@@ -127,7 +131,7 @@ const Header = () => {
                                     <p className="px-4 py-2 text-gray-700 border-b bg-gray-100">
                                         {user.displayName || "User"}
                                     </p>
-                                    
+
                                     <button
                                         onClick={handleLogout}
                                         className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-300"
@@ -201,7 +205,7 @@ const Header = () => {
                                         || "User"}</p>
                                     <p className="text-gray-400 text-sm">{user.email}</p>
                                 </li>
-                                
+
                                 {links}
                                 <li className="pt-4">
                                     <button
