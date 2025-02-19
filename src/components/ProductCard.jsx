@@ -3,7 +3,7 @@ import { FaArrowUp } from "react-icons/fa";
 
 const ProductCard = ({ product, onUpvote, isOwner }) => {
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-svh"><span className="loading loading-infinity loading-lg"></span></div>;
   }
 
   const tags = Array.isArray(product?.tags) ? product.tags : [];

@@ -136,7 +136,7 @@ const ProductDetails = () => {
   };
 
   if (isProductLoading || isReviewsLoading) {
-    return <div className="text-center py-8">Loading...</div>;
+    return <div className="flex justify-center items-center h-svh"><span className="loading loading-infinity loading-lg"></span></div>;
   }
 
   if (isProductError || isReviewsError) {
