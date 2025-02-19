@@ -127,13 +127,7 @@ const Header = () => {
                                     <p className="px-4 py-2 text-gray-700 border-b bg-gray-100">
                                         {user.displayName || "User"}
                                     </p>
-                                    {/* <NavLink
-                                        to="/dashboard"
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-300"
-                                        onClick={() => setIsDropdownOpen(false)}
-                                    >
-                                        Dashboard
-                                    </NavLink> */}
+                                    
                                     <button
                                         onClick={handleLogout}
                                         className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-300"
@@ -207,42 +201,7 @@ const Header = () => {
                                         || "User"}</p>
                                     <p className="text-gray-400 text-sm">{user.email}</p>
                                 </li>
-                                {/* <li>
-                                    <NavLink
-                                        to="/dashboard"
-                                        className={mobileNavLinkClass}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        Dashboard
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/"
-                                        className={mobileNavLinkClass}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        Home
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/products"
-                                        className={mobileNavLinkClass}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        Products
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/about"
-                                        className={mobileNavLinkClass}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        About
-                                    </NavLink>
-                                </li> */}
+                                
                                 {links}
                                 <li className="pt-4">
                                     <button
